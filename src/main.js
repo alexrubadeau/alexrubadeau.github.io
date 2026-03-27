@@ -1,4 +1,3 @@
-import './style.css'
 import { createDeck, shuffle, drawCard } from './deck.js'
 import { getHandValue, isBlackjack, isFiveCardCharlie, canDouble, canSplit } from './hand.js'
 
