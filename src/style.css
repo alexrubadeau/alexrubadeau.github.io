@@ -1,0 +1,264 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  min-height: 100dvh;
+  background: #0b5d1e;
+  border: 2vh solid #16a34a;
+  border-radius: 2vh;
+  color: white;
+  font-family: Arial, sans-serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#menu {
+  width: 80vw;
+  min-height: 80dvh;
+  background: #1e3a8a;
+  border-radius: 2vw;
+  border: 1vw solid #2563eb;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 2vw;
+}
+
+#menu-btn {
+  width: 30vw;
+  height: 7dvh;
+  font-size: 3vw;
+  border: none;
+  border-radius: 1vw;
+  background: #222;
+  color: white;
+}
+
+#menu-btn:hover {
+  background: #444;
+  cursor: pointer;
+}
+
+#menu button {
+  width: 30vw;
+  height: 7dvh;
+  font-size: 3vw;
+  border: none;
+  border-radius: 1vw;
+  background: #222;
+  color: white;
+  margin-top: 2dvh;
+}
+
+#menu button:hover {
+  background: #444;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#table {
+  width: 95vw;
+  min-height: 95dvh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2dvh 0;
+}
+
+h1 {
+  text-align: center;
+  font-size: 5vw;
+}
+
+#dealer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 25dvh;
+  margin-bottom: 2dvh;
+}
+
+#players {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4vw;
+}
+
+.player {
+  width: 45vw;
+  min-height: 30dvh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.5vw;
+}
+
+.cards {
+  display: flex;
+  gap: 2vw;
+  min-height: 22dvh;
+  align-items: center;
+  justify-content: center;
+  margin: 2dvh 0;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 9vw;
+  height: 20dvh;
+  background: white;
+  color: black;
+  border-radius: 1vw;
+  border: 0.3vw solid white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 4vw;
+  font-weight: bold;
+}
+
+.card.red {
+  color: #d32f2f;
+}
+
+#controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 4vw;
+  margin-top: 2dvh;
+  margin-bottom: 3dvh;
+}
+
+#controls button {
+  width: 20vw;
+  height: 7dvh;
+  font-size: 3vw;
+  border: none;
+  border-radius: 1vw;
+  background: #222;
+  color: white;
+}
+
+#controls button:hover {
+  background: #444;
+  cursor: pointer;
+}
+
+#dealer-cards {
+  display: flex;
+  gap: 2vw;
+  min-height: 22dvh;
+  align-items: center;
+  justify-content: center;
+  margin: 2dvh 0;
+}
+
+#message {
+  text-align: center;
+  font-size: 3vw;
+  margin-top: 1dvh;
+  font-weight: bold;
+}
+
+/* optional mobile stacking */
+@media (max-width: 700px) {
+  #players {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .player {
+    width: 90vw;
+  }
+
+  .card {
+    width: 18vw;
+    height: 16dvh;
+    font-size: 5vw;
+  }
+
+  #controls button {
+    width: 26vw;
+    font-size: 4vw;
+  }
+}
+
+.player {
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.player.active {
+  opacity: 1;
+}
+.player.active {
+  outline: 0.5vw solid #a98200;
+  border-radius: 1vw;
+
+  /* subtle glow */
+  box-shadow: 0 0 2vw rgba(255, 213, 79, 0.6);
+}
+
+.hidden-card {
+  background: repeating-linear-gradient(
+    45deg,
+    #1e3a8a,
+    #1e3a8a 10px,
+    #2563eb 10px,
+    #2563eb 20px
+  );
+  color: transparent;
+  border: 0.3vw solid white;
+}
+.chips,.score,.bet {
+  margin-top: 0.5dvh;
+  font-size: 1.5vw;
+}
+
+@media (max-width: 700px) {
+  .chips,.score,.bet {
+    font-size: 3vw;
+  }
+}
+
+.split-hand {
+  margin-bottom: 2dvh;
+  padding: 1dvh 1vw;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1vw;
+  width: 100%;
+}
+
+.split-hand.active-hand {
+  border-color: #a98200;
+  box-shadow: 0 0 1vw rgba(255, 213, 79, 0.4);
+}
+
+.split-cards-row {
+  display: flex;
+  gap: 2vw;
+  justify-content: center;
+  align-items: center;
+  margin: 1dvh 0;
+  flex-wrap: wrap;
+}

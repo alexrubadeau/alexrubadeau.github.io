@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <title>Blackjack</title>
+  </head>
+
+  <body>
+    <div id="menu">
+      <h1>Blackjack</h1>
+      <div class ="options">
+        <label for="player-count">Number of Players:</label>
+        <select id="player-count">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
+      <div class ="options">
+        <label for="deck-count">Number of Decks:</label>
+        <select id="deck-count">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
+      <button id="start-btn">Start Game</button>
+    </div>
+    <div id="table" class="hidden">
+      <button id="menu-btn">Main Menu</button>
+      <div id="dealer">
+        <h2>Dealer</h2>
+        <div id="dealer-cards"></div>
+        <h2 id="dealer-score"></h2>
+      </div>
+      <p id="message"></p>
+      <div id="controls">
+        <button id="deal-btn">Deal</button>
+        <button id="hit-btn">Hit</button>
+        <button id="stand-btn">Stand</button>
+        <button id="double-btn">Double</button>
+        <button id="split-btn">Split</button>
+        <button id="insurance-btn">Insurance</button>
+      </div>
+      <div id="players">
+        <!-- Populate this area with player divs -->
+      </div>
+
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
