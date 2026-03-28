@@ -294,7 +294,8 @@ async function resetRound() {
         cards: [],
         stood: true,
         busted: false,
-        bet: 0
+        bet: 0,
+        insuranceBet: 0
       }
     ]
     player.activeHandIndex = 0
@@ -310,7 +311,8 @@ async function resetRound() {
       cards: [drawCard(deck), drawCard(deck)],
       stood: false,
       busted: false,
-      bet: betAmount
+      bet: betAmount,
+      insuranceBet: 0
     }
   ]
   player.activeHandIndex = 0
@@ -465,14 +467,16 @@ async function splitPlayer(player) {
       cards: [firstCard, drawCard(deck)],
       stood: false,
       busted: false,
-      bet: hand.bet
+      bet: hand.bet,
+      insuranceBet: 0
     },
     {
       label: `${player.name}.2`,
       cards: [secondCard, drawCard(deck)],
       stood: false,
       busted: false,
-      bet: hand.bet
+      bet: hand.bet,
+      insuranceBet: 0
     }
   ]
 
@@ -506,8 +510,13 @@ async function insurancePlayer(player) {
     messageEl.textContent = 'Insurance is not available.'
     return
   }
-  
-  if (player.chips < player.bet / 2) {
+
+  const hand = getCurrentHand(player)
+  if (!hand) return
+
+  const insuranceBet = Math.floor(hand.bet / 2)
+
+  if (player.chips < insuranceBet) {
     messageEl.textContent = `${player.name} does not have enough chips for insurance.`
     updateControls(true)
     await sleep(2000)
@@ -515,9 +524,11 @@ async function insurancePlayer(player) {
     return
   }
 
-  player.chips -= player.bet / 2
+  player.chips -= insuranceBet
+  hand.insuranceBet = insuranceBet
+
   renderPlayers()
-  messageEl.textContent = `${player.name} takes insurance bet of ${player.bet / 2} chips.`
+  messageEl.textContent = `${player.name} takes insurance for ${insuranceBet} chips.`
   updateControls(true)
   await sleep(2000)
   updateControls()
@@ -546,7 +557,7 @@ async function playDealer() {
   messageEl.textContent = 'Dealer reveals the hidden card...'
   await sleep(2000)
 
-  while (getHandValue(dealerHand) < 17) {
+  while (getHandValue(dealerHand) < 17 && dealerHand.length < 5) {
     dealerHand.push(drawCard(deck))
     renderDealer(false)
 
@@ -610,7 +621,11 @@ function determineWinners() {
         return
       }
 
-      if (dealerBlackjack) {
+      if (dealerBlackjack && hand.insuranceBet > 0) {
+        player.chips += hand.bet
+        results.push(`${hand.label} loses to dealer blackjack but keeps their bet due to insurance`)
+        return
+      } else if (dealerBlackjack && hand.insuranceBet === 0) {
         results.push(`${hand.label} loses to dealer blackjack`)
         return
       }
